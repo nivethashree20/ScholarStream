@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS research_papers (
     FOREIGN KEY (student_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Seed an admin user (password: admin123)
+-- Seed an admin user (password: admin@123)
 -- In production, passwords must be hashed using password_hash()
 INSERT INTO users (name, email, password, role) VALUES 
-('Admin', 'admin@scholarstream.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin')
+('Admin', 'admin@scholarstream.com', '$2y$10$Gg6O8ul6sSRyJLvlybcwreKQkmLzGuqlhcRgXC8l2XCxbFooDabfS', 'admin')
 ON DUPLICATE KEY UPDATE id=id;

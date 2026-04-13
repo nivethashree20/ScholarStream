@@ -1,11 +1,7 @@
 <?php
-$host = 'localhost';
-$db   = 'scholarstream';
-$user = 'root';
-$pass = ''; // Update with your MySQL password
-$charset = 'utf8mb4';
+$db_path = __DIR__ . '/../../database/scholarstream.sqlite';
+$dsn = "sqlite:$db_path";
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -13,7 +9,9 @@ $options = [
 ];
 
 try {
-     $pdo = new PDO($dsn, $user, $pass, $options);
+     $pdo = new PDO($dsn, null, null, $options);
+     // Enable foreign key support for SQLite
+     $pdo->exec("PRAGMA foreign_keys = ON;");
 } catch (\PDOException $e) {
      throw new \PDOException($e->getMessage(), (int)$e->getCode());
 }

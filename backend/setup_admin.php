@@ -1,9 +1,9 @@
 <?php
 require_once 'config/db_connect.php';
 
-$email = 'scholarstream@gailm.com';
-$password = password_hash('scholarstream123', PASSWORD_BCRYPT);
-$name = 'System Administrator';
+$email = 'admin@scholarstream.com';
+$password = password_hash('admin@123', PASSWORD_BCRYPT);
+$name = 'Admin';
 $role = 'admin';
 
 try {

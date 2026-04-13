@@ -1,0 +1,12 @@
+# Disable directory listing
+Options -Indexes
+
+# Protect sensitive files
+<FilesMatch "^\.|\.(sql|sqlite|log|ini|sh|bat)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Ensure PHP errors are not shown to users in production
+php_flag display_errors Off
+php_value error_reporting 2147483647

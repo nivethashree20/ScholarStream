@@ -1,0 +1,8 @@
+# Deny access to config and upload source
+<FilesMatch "\.php$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Allow access to specific backend scripts if needed, but generally, 
+# everything should be routed through the frontend.

@@ -1,0 +1,17 @@
+{
+    "name": "nivethashree20/scholarstream",
+    "description": "Research Paper Management System",
+    "type": "project",
+    "require": {
+        "php": ">=8.1",
+        "ext-pdo": "*",
+        "ext-pdo_sqlite": "*",
+        "ext-pdo_pgsql": "*"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}

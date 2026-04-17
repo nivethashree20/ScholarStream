@@ -1,4 +1,12 @@
-# Use the official PHP image with Apache
+# --- Stage 1: Build React Frontend ---
+FROM node:20-slim AS frontend-build
+WORKDIR /app
+COPY frontend-react/package*.json ./
+RUN npm install
+COPY frontend-react/ ./
+RUN npm run build
+
+# --- Stage 2: Production PHP/Apache Server ---
 FROM php:8.2-apache
 
 # Install system dependencies for PostgreSQL and PHP extensions
@@ -16,12 +24,14 @@ WORKDIR /var/www/html
 # Copy all project files into the container
 COPY . .
 
-# Set permissions for folders that require writing (uploads and SQLite DB)
-# Note: On Render, standard file writes are ephemeral without a Disk.
-RUN chown -R www-data:www-data /var/www/html/backend/uploads \
-    && chmod -R 777 /var/www/html/backend/uploads \
-    && chown -R www-data:www-data /var/www/html/database \
-    && chmod -R 777 /var/www/html/database
+# Copy built frontend assets from Stage 1 into the root
+# Note: We copy the contents of dist/ so they are served at /
+COPY --from=frontend-build /app/dist/ ./
+
+# Set permissions for folders that require writing
+RUN mkdir -p backend/uploads database && \
+    chown -R www-data:www-data /var/www/html/backend/uploads /var/www/html/database && \
+    chmod -R 775 /var/www/html/backend/uploads /var/www/html/database
 
 # Expose port 80
 EXPOSE 80

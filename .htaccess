@@ -10,3 +10,17 @@ Options -Indexes
 # Ensure PHP errors are not shown to users in production
 php_flag display_errors Off
 php_value error_reporting 2147483647
+
+# SPA Routing
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Forward API requests to the PHP files
+  RewriteRule ^api/ - [L]
+  
+  # If the requested resource is not a file or directory, serve index.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>

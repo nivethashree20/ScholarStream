@@ -29,13 +29,14 @@ for ($i = 6; $i >= 0; $i--) {
     $chart_dates[$date] = 0;
 }
 
+$seven_days_ago = date('Y-m-d', strtotime('-7 days'));
 $stmt = $pdo->prepare("SELECT DATE(rp.submitted_at) as submit_date, COUNT(DISTINCT rp.id) as count 
     FROM research_papers rp
     LEFT JOIN paper_coauthors pc ON rp.id = pc.paper_id
     WHERE (rp.student_id = ? OR pc.student_email = (SELECT email FROM users WHERE id = ?))
-    AND rp.submitted_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) 
+    AND rp.submitted_at >= ? 
     GROUP BY DATE(rp.submitted_at)");
-$stmt->execute([$student_id, $student_id]);
+$stmt->execute([$student_id, $student_id, $seven_days_ago]);
 $daily_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($daily_data as $row) {

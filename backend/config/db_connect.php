@@ -35,5 +35,3 @@ try {
     // In production, you might want to log this instead of throwing it directly
     throw new \PDOException($e->getMessage(), (int)$e->getCode());
 }
-?>
-

@@ -26,4 +26,3 @@ function sendUnauthorized($message = "Unauthorized access") {
 function sendBadRequest($message = "Bad request") {
     sendResponse(false, $message, null, 400);
 }
-?>

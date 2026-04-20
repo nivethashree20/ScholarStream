@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS research_papers (
     abstract TEXT NOT NULL,
     file_path TEXT NOT NULL,
     status TEXT NOT NULL DEFAULT 'Pending' CHECK(status IN ('Pending', 'Approved', 'Declined', 'Revision Required')),
+    admin_comments TEXT DEFAULT NULL,
     version INTEGER DEFAULT 1,
     parent_id INTEGER DEFAULT NULL,
     is_latest BOOLEAN DEFAULT 1,

@@ -7,6 +7,7 @@ try {
     ALTER TABLE research_papers ADD COLUMN IF NOT EXISTS parent_id INT DEFAULT NULL;
     ALTER TABLE research_papers ADD COLUMN IF NOT EXISTS is_latest BOOLEAN DEFAULT TRUE;
     ALTER TABLE research_papers ADD COLUMN IF NOT EXISTS certificate_id VARCHAR(255) UNIQUE DEFAULT NULL;
+    ALTER TABLE research_papers ADD COLUMN IF NOT EXISTS admin_comments TEXT DEFAULT NULL;
     
     CREATE TABLE IF NOT EXISTS paper_coauthors (
         id SERIAL PRIMARY KEY,
